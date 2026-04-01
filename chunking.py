@@ -1,16 +1,31 @@
 import fitz                 # ye pymupdf ki wajah sa aya hai or ye pdf read krta hai just
 from config import collection
+import nltk
+
+nltk.download("punkt", quiet=True)            # punkt aik machine-learning model hai jo train kiya hai ye batana k lliya k kahan se sentence ko end krna chahiye
+nltk.download("punkt_tab", quiet=True)  
 
 
-def chunkText(text, chunkSize=500, overlap=100):
+def chunkText(text, maxWord=40, overlapSentences=1):
+    sentences = nltk.sent_tokenize(text)                 # when you enter you query this line goes straight to punkt
     chunks = []
-    start  = 0
-    while start < len(text):
-        end = start + chunkSize
-        chunks.append(text[start:end])
-        start = end - overlap
-    return chunks
+    current = []
+    wordcount  = 0
+    
+    for sentence in sentences:
+        words = len(sentence.split())
+        if wordcount + words > maxWord and current:
+            chunks.append(" ".join(current))
+            current = current[-overlapSentences:]
+            wordcount = sum(len(s.split()) for s in current)
+        current.append(sentence)
+        wordcount += words
 
+
+    if current:
+        chunks.append(" ".join(current))
+
+    return chunks
 
 def indexPDF(pdfPath):
     doc    = fitz.open(pdfPath)
@@ -25,7 +40,7 @@ def indexPDF(pdfPath):
             break
 
         fullText   = " ".join([l.strip() for l in text.split("\n") if l.strip()])
-        pageChunks = chunkText(fullText, chunkSize=500, overlap=100)
+        pageChunks = chunkText(fullText)
 
         for j, chunk in enumerate(pageChunks):
             if len(chunk) > 30:

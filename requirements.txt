@@ -41,6 +41,7 @@ importlib_resources==6.5.2
 instructor==1.14.5
 Jinja2==3.1.6
 jiter==0.11.1
+joblib==1.5.3
 jsonpatch==1.33
 jsonpointer==3.1.1
 jsonschema==4.26.0
@@ -68,6 +69,7 @@ multiprocess==0.70.19
 mypy_extensions==1.1.0
 nest-asyncio==1.6.0
 networkx==3.6.1
+nltk==3.9.4
 numpy==2.4.3
 oauthlib==3.3.1
 onnxruntime==1.24.3
