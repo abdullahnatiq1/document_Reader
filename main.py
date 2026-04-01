@@ -43,7 +43,7 @@ Question : {query}
         stream = True
     )
     print ("Assistant : ", end = "", flush = True)
-    fullResponse = " "
+    fullResponse = ""
 
     for chunk in response:
         if chunk.choices[0].delta.content:

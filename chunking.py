@@ -21,10 +21,8 @@ def chunkText(text, maxWord=40, overlapSentences=1):
         current.append(sentence)
         wordcount += words
 
-
     if current:
         chunks.append(" ".join(current))
-
     return chunks
 
 def indexPDF(pdfPath):

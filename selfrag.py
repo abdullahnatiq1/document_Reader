@@ -19,7 +19,7 @@ def selfRagRetrieve(query):
     chunks = results ["documents"][0]
 
     usefulChunks = [c for c in chunks if isChunkRelevant(query,c)]
-    print(f"Self RAG is implemented so Total Chunk : {len(chunks)}, useful Chunks : {(usefulChunks)}")
+    print(f"Self RAG is implemented so Total Chunk : {len(chunks)}, useful Chunks : {len(usefulChunks)}")
     return "\n\n".join (usefulChunks) if usefulChunks else "\n\n".join(chunks)
 
 def selfRagVerify(answer, context):
